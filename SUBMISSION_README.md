@@ -248,31 +248,27 @@ We implemented comprehensive mutation testing using the Stryker framework with t
 - **License:** MIT
 - **Why chosen:** Industry standard, excellent ES module support
 
-### 2. **Chai (v4.3.10)** - Assertion Library
-- **Type:** Open Source
-- **Purpose:** Expressive assertions (expect, should, assert styles)
-- **License:** MIT
-- **Why chosen:** Readable syntax, comprehensive assertion types
 
-### 3. **Sinon (v17.0.1)** - Test Doubles
+
+### 2. **Sinon (v17.0.1)** - Test Doubles
 - **Type:** Open Source
 - **Purpose:** Spies, stubs, and mocks for test isolation
 - **License:** BSD-3-Clause
 - **Why chosen:** Powerful mocking capabilities, integrates with Mocha/Chai
 
-### 4. **Supertest (v6.3.3)** - HTTP Integration Testing
+### 3. **Supertest (v6.3.3)** - HTTP Integration Testing
 - **Type:** Open Source
 - **Purpose:** HTTP assertion library for testing Express APIs
 - **License:** MIT
 - **Why chosen:** Simple API, fluent syntax, Express compatibility
 
-### 5. **c8 (v8.0.1)** - Code Coverage
+### 4. **c8 (v8.0.1)** - Code Coverage
 - **Type:** Open Source
 - **Purpose:** Native V8 code coverage reporting
 - **License:** ISC
 - **Why chosen:** Fast, accurate, built-in Node.js support
 
-### 6. **Stryker Mutator (v8.0.0)** - Mutation Testing
+### 5. **Stryker Mutator (v8.0.0)** - Mutation Testing
 - **Type:** Open Source
 - **Purpose:** Mutation testing framework
 - **License:** Apache-2.0
@@ -528,3 +524,4 @@ For questions or clarifications, please refer to:
 ---
 
 **End of Submission README**
+
