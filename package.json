@@ -1,0 +1,44 @@
+{
+  "name": "mini-online-bookstore",
+  "version": "1.0.0",
+  "description": "A mini online bookstore application for mutation testing demonstration",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' mocha 'test/**/*.spec.js' --timeout 5000",
+    "test:unit": "NODE_OPTIONS='--experimental-vm-modules' mocha 'test/unit/**/*.spec.js' --timeout 5000",
+    "test:integration": "NODE_OPTIONS='--experimental-vm-modules' mocha 'test/integration/**/*.spec.js' --timeout 10000",
+    "test:coverage": "c8 --reporter=html --reporter=text --reports-dir=test/results/coverage npm test",
+    "mutation": "stryker run",
+    "mutation:report": "stryker run && start reports/mutation/index.html",
+    "generate-products": "node scripts/generateLargeProducts.js",
+    "test:all": "bash scripts/run_all_tests.sh",
+    "test:all:windows": "scripts\\run_all_tests.bat"
+  },
+  "keywords": [
+    "bookstore",
+    "mutation-testing",
+    "e-commerce"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "nyc": "^17.1.0"
+  },
+  "devDependencies": {
+    "@stryker-mutator/core": "^8.7.1",
+    "@stryker-mutator/javascript-mutator": "^4.0.0",
+    "@stryker-mutator/mocha-runner": "^8.7.1",
+    "c8": "^8.0.1",
+    "chai": "^4.5.0",
+    "mocha": "^10.8.2",
+    "sinon": "^17.0.1",
+    "supertest": "^6.3.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
