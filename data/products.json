@@ -1,0 +1,202 @@
+[
+  {
+    "id": "book-001",
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "isbn": "9780743273565",
+    "price": 15.99,
+    "category": "Fiction",
+    "stock": 45,
+    "description": "A classic American novel set in the Jazz Age, exploring themes of wealth, love, and the American Dream."
+  },
+  {
+    "id": "book-002",
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "isbn": "9780061120084",
+    "price": 18.99,
+    "category": "Fiction",
+    "stock": 32,
+    "description": "A timeless story of racial injustice and childhood innocence in the American South."
+  },
+  {
+    "id": "book-003",
+    "title": "1984",
+    "author": "George Orwell",
+    "isbn": "9780451524935",
+    "price": 16.99,
+    "category": "Fiction",
+    "stock": 28,
+    "description": "A dystopian social science fiction novel exploring surveillance, totalitarianism, and individualism."
+  },
+  {
+    "id": "book-004",
+    "title": "Sapiens: A Brief History of Humankind",
+    "author": "Yuval Noah Harari",
+    "isbn": "9780062316097",
+    "price": 24.99,
+    "category": "Non-Fiction",
+    "stock": 50,
+    "description": "An exploration of the history of the human species from the Stone Age to the modern age."
+  },
+  {
+    "id": "book-005",
+    "title": "Educated",
+    "author": "Tara Westover",
+    "isbn": "9780399590504",
+    "price": 22.99,
+    "category": "Biography",
+    "stock": 38,
+    "description": "A memoir about a young woman who grows up in a survivalist family and eventually earns a PhD from Cambridge."
+  },
+  {
+    "id": "book-006",
+    "title": "The Selfish Gene",
+    "author": "Richard Dawkins",
+    "isbn": "9780198788607",
+    "price": 19.99,
+    "category": "Science",
+    "stock": 22,
+    "description": "A groundbreaking work that explores evolutionary biology from the gene's perspective."
+  },
+  {
+    "id": "book-007",
+    "title": "A Brief History of Time",
+    "author": "Stephen Hawking",
+    "isbn": "9780553380163",
+    "price": 21.99,
+    "category": "Science",
+    "stock": 15,
+    "description": "An exploration of cosmology, from the Big Bang to black holes, written for general readers."
+  },
+  {
+    "id": "book-008",
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "isbn": "9780132350884",
+    "price": 42.99,
+    "category": "Technology",
+    "stock": 26,
+    "description": "A handbook of agile software craftsmanship with practical advice on writing clean, maintainable code."
+  },
+  {
+    "id": "book-009",
+    "title": "Design Patterns",
+    "author": "Gang of Four",
+    "isbn": "9780201633610",
+    "price": 54.99,
+    "category": "Technology",
+    "stock": 18,
+    "description": "Elements of reusable object-oriented software - the definitive guide to design patterns."
+  },
+  {
+    "id": "book-010",
+    "title": "The Pragmatic Programmer",
+    "author": "Andrew Hunt & David Thomas",
+    "isbn": "9780135957059",
+    "price": 49.99,
+    "category": "Technology",
+    "stock": 31,
+    "description": "Your journey to mastery - timeless tips and techniques for better programming."
+  },
+  {
+    "id": "book-011",
+    "title": "Guns, Germs, and Steel",
+    "author": "Jared Diamond",
+    "isbn": "9780393317558",
+    "price": 23.99,
+    "category": "History",
+    "stock": 19,
+    "description": "A Pulitzer Prize-winning exploration of why some societies prospered while others did not."
+  },
+  {
+    "id": "book-012",
+    "title": "The Code Breaker",
+    "author": "Walter Isaacson",
+    "isbn": "9781982115852",
+    "price": 28.99,
+    "category": "Biography",
+    "stock": 42,
+    "description": "The story of Jennifer Doudna and the race to understand and control CRISPR gene editing."
+  },
+  {
+    "id": "book-013",
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "author": "J.K. Rowling",
+    "isbn": "9780439708180",
+    "price": 12.99,
+    "category": "Children",
+    "stock": 3,
+    "description": "The first book in the beloved Harry Potter series about a young wizard's magical adventures."
+  },
+  {
+    "id": "book-014",
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "isbn": "9780547928227",
+    "price": 14.99,
+    "category": "Fiction",
+    "stock": 27,
+    "description": "A timeless classic about Bilbo Baggins' unexpected journey through Middle-earth."
+  },
+  {
+    "id": "book-015",
+    "title": "Thinking, Fast and Slow",
+    "author": "Daniel Kahneman",
+    "isbn": "9780374533557",
+    "price": 26.99,
+    "category": "Non-Fiction",
+    "stock": 35,
+    "description": "A Nobel Prize winner's groundbreaking work on the two systems that drive the way we think."
+  },
+  {
+    "id": "book-016",
+    "title": "The Da Vinci Code",
+    "author": "Dan Brown",
+    "isbn": "9780307474278",
+    "price": 17.99,
+    "category": "Mystery",
+    "stock": 0,
+    "description": "A gripping thriller that follows symbologist Robert Langdon on a quest to solve an ancient mystery."
+  },
+  {
+    "id": "book-017",
+    "title": "Sherlock Holmes: The Complete Collection",
+    "author": "Arthur Conan Doyle",
+    "isbn": "9781435114944",
+    "price": 34.99,
+    "category": "Mystery",
+    "stock": 24,
+    "description": "The complete collection of stories featuring the world's greatest detective."
+  },
+  {
+    "id": "book-018",
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "isbn": "9780141439518",
+    "price": 13.99,
+    "category": "Romance",
+    "stock": 41,
+    "description": "A romantic novel of manners set in Georgian England, following Elizabeth Bennet."
+  },
+  {
+    "id": "book-019",
+    "title": "The Notebook",
+    "author": "Nicholas Sparks",
+    "isbn": "9781455582877",
+    "price": 16.99,
+    "category": "Romance",
+    "stock": 29,
+    "description": "A heartwarming love story that spans decades, celebrating enduring romance."
+  },
+  {
+    "id": "book-020",
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "isbn": "9780735211292",
+    "price": 27.99,
+    "category": "Non-Fiction",
+    "stock": 5,
+    "description": "An easy and proven way to build good habits and break bad ones through small changes."
+  }
+]
