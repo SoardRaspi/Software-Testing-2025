@@ -253,44 +253,43 @@ export function validateAddress(address) {
   }
 
   // Validate street
-  if (!address.street || typeof address.street !== 'string') {
-    errors.push('Street address is required');
+  if (!address.street || typeof address.street !== 'string' || address.street.trim() === '') {
+    errors.push('street');
   } else if (address.street.trim().length < 5) {
-    errors.push('Street address is too short');
+    errors.push('street');
   } else if (address.street.length > 200) {
-    errors.push('Street address is too long');
+    errors.push('street');
   }
 
   // Validate city
-  if (!address.city || typeof address.city !== 'string') {
-    errors.push('City is required');
+  if (!address.city || typeof address.city !== 'string' || address.city.trim() === '') {
+    errors.push('city');
   } else if (address.city.trim().length < 2) {
-    errors.push('City name is too short');
+    errors.push('city');
   } else if (address.city.length > 100) {
-    errors.push('City name is too long');
+    errors.push('city');
   }
 
   // Validate ZIP code
-  if (!address.zip || typeof address.zip !== 'string') {
-    errors.push('ZIP code is required');
+  if (!address.zip || typeof address.zip !== 'string' || address.zip.trim() === '') {
+    errors.push('zip');
   } else {
-    // Complex ZIP validation with nested conditions
     const zip = address.zip.trim();
     
     if (zip.length < 5) {
-      errors.push('ZIP code is too short');
+      errors.push('zip');
     } else if (zip.length > 10) {
-      errors.push('ZIP code is too long');
+      errors.push('zip');
     } else if (!/^[\d\-\s]+$/.test(zip)) {
-      errors.push('ZIP code contains invalid characters');
+      errors.push('zip');
     }
   }
 
   // Validate country
-  if (!address.country || typeof address.country !== 'string') {
-    errors.push('Country is required');
+  if (!address.country || typeof address.country !== 'string' || address.country.trim() === '') {
+    errors.push('country');
   } else if (address.country.trim().length < 2) {
-    errors.push('Country name is invalid');
+    errors.push('country');
   }
 
   return {
@@ -306,9 +305,10 @@ export function validateAddress(address) {
  * @returns {object} Validation result
  */
 export function validateSearchQuery(query, options = {}) {
-  const { minLength = 2, maxLength = 100, allowSpecialChars = false } = options;
+  const { minLength = 0, maxLength = 100, allowSpecialChars = false } = options;
 
-  if (!query || typeof query !== 'string') {
+  // if (!query || typeof query !== 'string') {
+  if (typeof query !== 'string') {
     return { valid: false, error: 'Search query is required' };
   }
 

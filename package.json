@@ -7,9 +7,9 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
-    "test": "NODE_OPTIONS='--experimental-vm-modules' mocha 'test/**/*.spec.js' --timeout 5000",
-    "test:unit": "NODE_OPTIONS='--experimental-vm-modules' mocha 'test/unit/**/*.spec.js' --timeout 5000",
-    "test:integration": "NODE_OPTIONS='--experimental-vm-modules' mocha 'test/integration/**/*.spec.js' --timeout 10000",
+    "test": "node --experimental-vm-modules node_modules/mocha/bin/mocha.js test/**/*.spec.js --timeout 5000",
+    "test:unit": "node --experimental-vm-modules node_modules/mocha/bin/mocha.js test/unit/**/*.spec.js --timeout 5000",
+    "test:integration": "node --experimental-vm-modules node_modules/mocha/bin/mocha.js test/integration/**/*.spec.js --timeout 10000",
     "test:coverage": "c8 --reporter=html --reporter=text --reports-dir=test/results/coverage npm test",
     "mutation": "stryker run",
     "mutation:report": "stryker run && start reports/mutation/index.html",
@@ -33,7 +33,6 @@
     "@stryker-mutator/javascript-mutator": "^4.0.0",
     "@stryker-mutator/mocha-runner": "^8.7.1",
     "c8": "^8.0.1",
-    "chai": "^4.5.0",
     "mocha": "^10.8.2",
     "sinon": "^17.0.1",
     "supertest": "^6.3.4"

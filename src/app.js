@@ -4,7 +4,7 @@
  */
 
 import * as catalogService from './services/catalogService.js';
-import * as cartService from './services/cartService.js';
+// import * as cartService from './services/cartService.js';
 import * as inventoryService from './services/inventoryService.js';
 import * as orderService from './services/orderService.js';
 import { User } from './models/user.js';
