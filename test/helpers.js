@@ -11,10 +11,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Paths to data files
-const PRODUCTS_PATH = path.join(__dirname, '../../data/products.json');
-const ORDERS_PATH = path.join(__dirname, '../../data/orders.json');
-const PRODUCTS_BACKUP_PATH = path.join(__dirname, '../../data/products.backup.json');
-const ORDERS_BACKUP_PATH = path.join(__dirname, '../../data/orders.backup.json');
+const PRODUCTS_PATH = path.join(__dirname, '../data/products.json');
+const ORDERS_PATH = path.join(__dirname, '../data/orders.json');
+const PRODUCTS_BACKUP_PATH = path.join(__dirname, '../data/products.backup.json');
+const ORDERS_BACKUP_PATH = path.join(__dirname, '../data/orders.backup.json');
 
 /**
  * Backup original data files before tests

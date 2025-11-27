@@ -102,6 +102,7 @@ export function getProductById(productId) {
  * @returns {Array<Product>} Matching products
  */
 export function searchProducts(query, options = {}) {
+  // console.log('Searching products with query inside catalogServices.js:', query);
   // Validate query
   const validation = validateSearchQuery(query);
   if (!validation.valid) {
@@ -201,6 +202,8 @@ export function filterProducts(filters = {}) {
   // In stock filter
   if (filters.inStock === true) {
     results = results.filter(p => p.isInStock());
+  } else if (filters.inStock === false) {
+    results = results.filter(p => !p.isInStock());
   }
 
   // Low stock filter
@@ -290,6 +293,33 @@ export function sortProducts(products, sortBy = 'title', order = 'asc') {
   });
 
   return sorted;
+}
+
+/**
+ * Paginates products
+ * @param {Array<Product>} products - Products to paginate
+ * @param {number} page - Page number (1-indexed)
+ * @param {number} limit - Items per page
+ * @returns {object} Paginated results
+ */
+export function paginateProducts(products, page = 1, limit = 10) {
+  if (!Array.isArray(products)) {
+    return { products: [], page: 1, limit, total: 0, totalPages: 0 };
+  }
+
+  const total = products.length;
+  const totalPages = Math.ceil(total / limit);
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+  const paginatedProducts = products.slice(startIndex, endIndex);
+
+  return {
+    products: paginatedProducts,
+    page,
+    limit,
+    total,
+    totalPages
+  };
 }
 
 /**
@@ -392,19 +422,19 @@ export function addProduct(productData) {
   const required = ['id', 'title', 'author', 'price', 'category', 'isbn', 'stock'];
   for (const field of required) {
     if (productData[field] === undefined || productData[field] === null) {
-      return null;
+      return { success: false, error: `Missing required field: ${field}` };
     }
   }
 
   // Validate price
   const priceValidation = validatePrice(productData.price);
   if (!priceValidation.valid) {
-    return null;
+    return { success: false, error: priceValidation.error };
   }
 
   // Check if ID already exists
   if (getProductById(productData.id)) {
-    return null;
+    return { success: false, error: 'Product ID already exists' };
   }
 
   const product = new Product(
@@ -419,7 +449,7 @@ export function addProduct(productData) {
   );
 
   productCatalog.push(product);
-  return product;
+  return { success: true, product };
 }
 
 /**
@@ -432,7 +462,7 @@ export function updateProduct(productId, updates) {
   const product = getProductById(productId);
   
   if (!product) {
-    return false;
+    return { success: false };
   }
 
   // Apply allowed updates with validation
@@ -457,7 +487,7 @@ export function updateProduct(productId, updates) {
     product.description = updates.description;
   }
 
-  return true;
+  return { success: true };
 }
 
 /**
@@ -469,9 +499,9 @@ export function deleteProduct(productId) {
   const index = productCatalog.findIndex(p => p.id === productId);
   
   if (index === -1) {
-    return false;
+    return { success: false };
   }
 
   productCatalog.splice(index, 1);
-  return true;
+  return { success: true };
 }

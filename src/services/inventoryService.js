@@ -446,3 +446,80 @@ export function calculateInventoryValue(products = []) {
     averageValue: Math.round(averageValue * 100) / 100
   };
 }
+
+/**
+ * Gets inventory log
+ * @returns {Array} Transaction log
+ */
+export function getInventoryLog() {
+  return [...inventoryLog];
+}
+
+/**
+ * Clears inventory log
+ */
+export function clearInventoryLog() {
+  inventoryLog.length = 0;
+}
+
+/**
+ * Gets stock level for a product
+ * @param {string} productId - Product ID
+ * @returns {object|null} Stock information
+ */
+export function getStockLevel(productId) {
+  const product = getProductById(productId);
+  if (!product) {
+    return null;
+  }
+  
+  return {
+    productId: product.id,
+    title: product.title,
+    stock: product.stock
+  };
+}
+
+/**
+ * Gets stock value for a product
+ * @param {string} productId - Product ID
+ * @returns {object|null} Stock value information
+ */
+export function getStockValue(productId) {
+  const product = getProductById(productId);
+  if (!product) {
+    return null;
+  }
+  
+  const totalValue = Math.round(product.price * product.stock * 100) / 100;
+  
+  return {
+    productId: product.id,
+    stock: product.stock,
+    pricePerUnit: product.price,
+    totalValue
+  };
+}
+
+/**
+ * Gets total inventory value
+ * @param {object} options - Options
+ * @returns {object} Total value information
+ */
+export function getTotalInventoryValue(options = {}) {
+  const { includeBreakdown = false } = options;
+  
+  // This would need access to all products from catalogService
+  // For now, return a basic structure
+  let totalValue = 0;
+  let productCount = 0;
+  let totalUnits = 0;
+  const breakdown = {};
+  
+  return {
+    totalValue,
+    productCount,
+    totalUnits,
+    breakdown: includeBreakdown ? breakdown : undefined
+  };
+}

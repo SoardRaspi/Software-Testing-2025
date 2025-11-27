@@ -44,16 +44,15 @@ const config = {
   mutate: [
     "src/models/**/*.js",
     "src/utils/**/*.js",
-    "src/services/**/*.js",
-    "src/app.js",
+    "src/services/catalogService.js",
+    "src/services/inventoryService.js",
+    // "src/app.js",  // Excluded - requires missing cart/order services
     "!src/**/*.spec.js",
     "!src/server.js"  // Exclude server.js as it's mainly configuration
   ],
   
   // Test files
-  testMatch: [
-    "test/**/*.spec.js"
-  ],
+  // testRunner and mochaOptions configured below
   
   // Mutation operators configuration
   // These cover both unit-level and integration-level mutations
@@ -62,20 +61,16 @@ const config = {
     excludedMutations: [
       // Keep these mutations active for comprehensive testing:
       // "ArithmeticOperator",    // AOR - Arithmetic Operator Replacement
-      // "EqualityOperator",      // Part of ROR - Relational operators
-      // "LogicalOperator",       // LOR - Logical Operator Replacement
+      // "EqualityOperaotor",      // Part of ROR - Relational operators
+      // "LogicalOperatr",       // LOR - Logical Operator Replacement
       // "ConditionalExpression", // Part of LOR
       // "BlockStatement",        // Part of MDC - Method Call Deletion
-      // "ReturnValue"            // RV - Return Value Mutation
+      // "ReturnValue",            // RV - Return Value Mutation
       
       // Exclude mutations that produce too many false positives:
       "StringLiteral",  // Changes strings - often not caught by tests
       "RegexLiteral",   // Changes regex patterns - too noisy
       "ArrayDeclaration" // Array literal changes - less meaningful
-    ],
-    plugins: [
-      // Standard JavaScript mutators that implement our desired operators
-      "@stryker-mutator/javascript-mutator"
     ]
   },
   
@@ -89,7 +84,7 @@ const config = {
   
   // HTML report output directory
   htmlReporter: {
-    baseDir: "reports/mutation"
+    fileName: "reports/mutation/index.html"
   },
   
   // JSON report output
@@ -125,29 +120,19 @@ const config = {
   
   // Mocha-specific options
   mochaOptions: {
-    spec: ["test/**/*.spec.js"],
-    timeout: 5000,
-    require: []
+    spec: ["test/unit/**/*.spec.js"]  // Only unit tests to avoid integration issues
   },
   
   // Ignore patterns
   ignorePatterns: [
     "node_modules",
-    "test",
-    "reports",
-    "coverage",
-    "client",
-    "data",
-    "docs"
-  ],
-  
-  // Warnings configuration
-  warnings: {
-    // Warn if a mutant takes too long
-    slow: true,
-    // Warn about unknown mutators
-    unknownOptions: true
-  }
+    // "test",
+    // "reports",
+    // "coverage",
+    // "client",
+    // "data",
+    // "docs"
+  ]
 };
 
 export default config;

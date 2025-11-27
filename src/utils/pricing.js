@@ -59,10 +59,35 @@ export function calculateDiscount(subtotal, discountType, discountValue) {
 export function getDiscountTier(subtotal) {
   // Multiple threshold checks with nested conditions
   if (typeof subtotal !== 'number' || subtotal < 0) {
-    return { percentage: 0, minPurchase: 0, name: 'none' };
+    return 0;
   }
 
   // Nested if-else chain for different tiers
+  if (subtotal >= 1000) {
+    return 0.25;
+  } else if (subtotal >= 500) {
+    return 0.20;
+  } else if (subtotal >= 200) {
+    return 0.15;
+  } else if (subtotal >= 100) {
+    return 0.10;
+  } else if (subtotal >= 50) {
+    return 0.05;
+  } else {
+    return 0;
+  }
+}
+
+/**
+ * Gets discount tier info object
+ * @param {number} subtotal - Subtotal amount
+ * @returns {object} Discount tier info
+ */
+export function getDiscountTierInfo(subtotal) {
+  if (typeof subtotal !== 'number' || subtotal < 0) {
+    return { percentage: 0, minPurchase: 0, name: 'none' };
+  }
+
   if (subtotal >= 200) {
     return { percentage: 20, minPurchase: 200, name: 'platinum' };
   } else if (subtotal >= 150) {
@@ -83,7 +108,7 @@ export function getDiscountTier(subtotal) {
  * @param {number} subtotal - Order subtotal
  * @returns {number} Shipping cost
  */
-export function calculateShipping(weight, shippingZone, subtotal) {
+export function calculateShipping(weight, shippingZone, subtotal = 0, shippingSpeed = 'standard') {
   // Free shipping threshold
   const freeShippingThreshold = 75;
 
@@ -98,51 +123,39 @@ export function calculateShipping(weight, shippingZone, subtotal) {
   }
 
   if (!shippingZone || typeof shippingZone !== 'string') {
-    return 0;
+    return 5.99; // Default shipping
   }
 
-  // Base rates by zone
+  const zone = shippingZone.toLowerCase();
   let baseRate = 0;
-  let perKgRate = 0;
 
-  // Complex nested switch-like logic
-  if (shippingZone === 'local') {
-    baseRate = 5;
-    perKgRate = 0.5;
-  } else if (shippingZone === 'regional') {
-    baseRate = 10;
-    perKgRate = 1.0;
-  } else if (shippingZone === 'national') {
-    baseRate = 15;
-    perKgRate = 1.5;
-  } else if (shippingZone === 'international') {
-    baseRate = 30;
-    perKgRate = 3.0;
+  // Zone-based rates
+  if (zone === 'local') {
+    baseRate = 5.99;
+  } else if (zone === 'regional') {
+    baseRate = 8.99;
+  } else if (zone === 'national') {
+    baseRate = 12.99;
+  } else if (zone === 'international') {
+    baseRate = 25.99;
   } else {
-    return 0; // Invalid zone
+    baseRate = 8.99; // Default
   }
 
-  // Calculate based on weight
-  let shippingCost = baseRate;
-
-  // Weight tier pricing with nested conditions
-  if (weight <= 1) {
-    shippingCost += perKgRate * weight;
-  } else if (weight <= 5) {
-    shippingCost += perKgRate * 1; // First kg
-    shippingCost += (perKgRate * 0.8) * (weight - 1); // Discount on additional kg
-  } else if (weight <= 10) {
-    shippingCost += perKgRate * 1;
-    shippingCost += (perKgRate * 0.8) * 4;
-    shippingCost += (perKgRate * 0.6) * (weight - 5); // Further discount
-  } else {
-    shippingCost += perKgRate * 1;
-    shippingCost += (perKgRate * 0.8) * 4;
-    shippingCost += (perKgRate * 0.6) * 5;
-    shippingCost += (perKgRate * 0.5) * (weight - 10); // Maximum discount
+  // Weight-based surcharge
+  let weightSurcharge = 0;
+  if (weight > 5) {
+    weightSurcharge = (weight - 5) * 2.50;
   }
 
-  return Math.round(shippingCost * 100) / 100;
+  // Speed premium
+  let speedMultiplier = 1;
+  if (shippingSpeed === 'express') {
+    speedMultiplier = 1.5;
+  }
+
+  const total = (baseRate + weightSurcharge) * speedMultiplier;
+  return Math.round(total * 100) / 100;
 }
 
 /**
@@ -204,11 +217,11 @@ export function calculateTax(amount, state, category = '') {
 export function applyBulkDiscount(quantity, unitPrice) {
   // Validation with nested checks
   if (typeof quantity !== 'number' || quantity <= 0 || !Number.isInteger(quantity)) {
-    return { totalPrice: 0, discount: 0, finalPrice: 0 };
+    return 0;
   }
 
   if (typeof unitPrice !== 'number' || unitPrice <= 0) {
-    return { totalPrice: 0, discount: 0, finalPrice: 0 };
+    return 0;
   }
 
   const totalPrice = quantity * unitPrice;
@@ -225,6 +238,42 @@ export function applyBulkDiscount(quantity, unitPrice) {
     discountPercentage = 10; // 10% off for 10-24
   } else if (quantity >= 5) {
     discountPercentage = 5; // 5% off for 5-9
+  }
+
+  const discount = (totalPrice * discountPercentage) / 100;
+  return Math.round(discount * 100) / 100;
+}
+
+/**
+ * Applies bulk purchase discount with details
+ * @param {number} quantity - Item quantity
+ * @param {number} unitPrice - Price per unit
+ * @returns {object} Pricing info
+ */
+export function applyBulkDiscountDetailed(quantity, unitPrice) {
+  if (typeof quantity !== 'number' || quantity <= 0 || !Number.isInteger(quantity)) {
+    return { totalPrice: 0, discount: 0, finalPrice: 0 };
+  }
+
+  if (typeof unitPrice !== 'number' || unitPrice <= 0) {
+    return { totalPrice: 0, discount: 0, finalPrice: 0 };
+  }
+
+  const totalPrice = quantity * unitPrice;
+  let discountPercentage = 0;
+
+  if (quantity >= 200) {
+    discountPercentage = 30;
+  } else if (quantity >= 100) {
+    discountPercentage = 25;
+  } else if (quantity >= 50) {
+    discountPercentage = 20;
+  } else if (quantity >= 20) {
+    discountPercentage = 15;
+  } else if (quantity >= 10) {
+    discountPercentage = 10;
+  } else if (quantity >= 5) {
+    discountPercentage = 5;
   }
 
   const discount = (totalPrice * discountPercentage) / 100;
@@ -281,6 +330,11 @@ export function calculateLoyaltyPoints(amount, customerTier = 'basic', isBirthda
     points += 25; // Bonus 25 points
   }
 
+  // Cap at 10000 points
+  if (points > 10000) {
+    points = 10000;
+  }
+
   return points;
 }
 
@@ -314,6 +368,60 @@ export function applyPromotion(price, promoCode, productInfo = {}) {
       promoApplied = true;
     } else if (code === 'SAVE20') {
       if (price >= 50) { // Minimum purchase requirement
+        discount = price * 0.20;
+        promoApplied = true;
+      }
+    } else if (code === 'CLEARANCE30') {
+      if (productInfo.isClearance === true) {
+        discount = price * 0.30;
+        promoApplied = true;
+      }
+    } else if (code === 'NEWRELEASE15') {
+      if (productInfo.isNew === true) {
+        discount = price * 0.15;
+        promoApplied = true;
+      }
+    } else if (code === 'FICTION25') {
+      if (productInfo.category === 'fiction') {
+        discount = price * 0.25;
+        promoApplied = true;
+      }
+    }
+  }
+
+  const finalPrice = price - discount;
+
+  return promoApplied;
+}
+
+/**
+ * Applies promotional pricing with details
+ * @param {number} price - Original price
+ * @param {string} promoCode - Promotional code
+ * @param {object} productInfo - Product information
+ * @returns {object} Pricing result
+ */
+export function applyPromotionDetailed(price, promoCode, productInfo = {}) {
+  if (typeof price !== 'number' || price <= 0) {
+    return {
+      originalPrice: 0,
+      finalPrice: 0,
+      discount: 0,
+      promoApplied: false
+    };
+  }
+
+  let discount = 0;
+  let promoApplied = false;
+
+  if (promoCode && typeof promoCode === 'string') {
+    const code = promoCode.toUpperCase().trim();
+
+    if (code === 'WELCOME10') {
+      discount = price * 0.10;
+      promoApplied = true;
+    } else if (code === 'SAVE20') {
+      if (price >= 50) {
         discount = price * 0.20;
         promoApplied = true;
       }
